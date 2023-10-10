@@ -1,0 +1,42 @@
+[
+  {
+    "id": "0",
+    "place": "Bangalore",
+    "image": "https://images.pexels.com/photos/739987/pexels-photo-739987.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    "id": "1",
+    "place": "Ahmedabad",
+    "image": "https://images.pexels.com/photos/6813041/pexels-photo-6813041.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    "id": "2",
+    "place": "Chennai",
+    "image": "https://images.pexels.com/photos/10070972/pexels-photo-10070972.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    "id": "3",
+    "place": "Delhi - NCR",
+    "image": "https://images.pexels.com/photos/789750/pexels-photo-789750.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    "id": "4",
+    "place": "Hyderabad",
+    "image": "https://images.pexels.com/photos/11321242/pexels-photo-11321242.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    "id": "5",
+    "place": "Kolkata",
+    "image": "https://images.pexels.com/photos/2846217/pexels-photo-2846217.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    "id": "6",
+    "place": "Jaipur",
+    "image": "https://images.pexels.com/photos/3581364/pexels-photo-3581364.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    "id": "7",
+    "place": "Lucknow",
+    "image": "https://images.pexels.com/photos/15351642/pexels-photo-15351642.jpeg?auto=compress&cs=tinysrgb&w=800"
+  }
+]

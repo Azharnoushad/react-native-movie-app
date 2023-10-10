@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+import PlaceScreen from "../screens/PlaceScreen";
 
 const ProfileStack = createNativeStackNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -13,7 +14,8 @@ const HomeStack = createNativeStackNavigator();
 const HomeStackScreen = () => {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen}/>
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{title:""}}/>
+      <HomeStack.Screen name="PlaceScreen" component={PlaceScreen} />
     </HomeStack.Navigator>
   );
 };
@@ -21,7 +23,7 @@ const HomeStackScreen = () => {
 const ProfileStackScreen = () => {
   return (
     <ProfileStack.Navigator>
-      <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen}/>
     </ProfileStack.Navigator>
   );
 };
