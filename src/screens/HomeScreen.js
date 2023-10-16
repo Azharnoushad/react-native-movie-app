@@ -7,19 +7,29 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useContext, useEffect, useLayoutEffect } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Place } from "../Context/PlaceContext";
 import movieData from "../json/MovieData.json";
 import MovieCard from "../components/MovieCard";
 import Header from "../components/Header";
+import {
+  BottomModal,
+  ModalContent,
+  ModalFooter,
+  ModalTitle,
+  SlideAnimation,
+} from "react-native-modals";
+import { FontAwesome } from "@expo/vector-icons";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const moveAnimation = new Animated.Value(0);
-
+  const [modalVisible, setModalVisible] = useState(false);
   const { selectedCity, setSelectedCity } = useContext(Place);
+  const [selectedFilter, setSelectedFilter] = useState();
+  const [sortedData, setSortedData] = useState(movieData);
 
   useEffect(() => {
     Animated.loop(
@@ -64,16 +74,228 @@ const HomeScreen = () => {
     });
   }, [selectedCity]);
 
+  const languages = [
+    {
+      id: "0",
+      language: "English",
+    },
+    {
+      id: "10",
+      language: "Kannada",
+    },
+    {
+      id: "1",
+      language: "Telugu",
+    },
+    {
+      id: "2",
+      language: "Hindi",
+    },
+    {
+      id: "3",
+      language: "Tamil",
+    },
+    {
+      id: "5",
+      language: "Malayalam",
+    },
+  ];
+
+  const genres = [
+    {
+      id: "0",
+      language: "Horror",
+    },
+    {
+      id: "1",
+      language: "Comedy",
+    },
+    {
+      id: "2",
+      language: "Action",
+    },
+    {
+      id: "3",
+      language: "Romance",
+    },
+    {
+      id: "5",
+      language: "Thriller",
+    },
+    {
+      id: "6",
+      language: "Drama",
+    },
+  ];
+
+  const applyFilterHandler = () => {
+    setModalVisible(false);
+    setSortedData(
+      movieData.filter((data) => data.original_language === selectedFilter)
+    );
+  };
   return (
     <View>
       <FlatList
-      numColumns={2}
-      columnWrapperStyle={{justifyContent:"space-between"}}
+        numColumns={2}
+        columnWrapperStyle={{ justifyContent: "space-between" }}
         ListHeaderComponent={Header}
-        data={movieData}
+        data={sortedData}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <MovieCard item={item} key={item.id} />}
       />
+      <Pressable
+        onPress={() => {
+          setModalVisible(!modalVisible);
+          setSortedData(movieData);
+        }}
+        style={{
+          position: "absolute",
+          bottom: 30,
+          backgroundColor: "#ffc40c",
+          width: 50,
+          height: 50,
+          borderRadius: 50,
+          justifyContent: "center",
+          alignItems: "center",
+          right: 30,
+        }}
+      >
+        <FontAwesome name="filter" size={24} color="#20a32f" />
+      </Pressable>
+      <BottomModal
+        onBackdropPress={() => setModalVisible(!modalVisible)}
+        swipeDirection={["up", "down"]}
+        swipeThreshold={200}
+        footer={
+          <ModalFooter>
+            <Pressable
+              onPress={applyFilterHandler}
+              style={{
+                paddingRight: 10,
+                marginLeft: "auto",
+                marginRight: "auto",
+                marginVertical: 10,
+                marginBottom: 30,
+              }}
+            >
+              <Text>Apply</Text>
+            </Pressable>
+          </ModalFooter>
+        }
+        modalTitle={<ModalTitle title="Filters" />}
+        modalAnimation={new SlideAnimation({ slideFrom: "bottom" })}
+        visible={modalVisible}
+        onHardwareBackPress={() => setModalVisible(!modalVisible)}
+        onTouchOutside={() => setModalVisible(!modalVisible)}
+      >
+        <ModalContent style={{ width: "100%", height: 400 }}>
+          <Text
+            style={{
+              paddingVertical: 5,
+              fontSize: 15,
+              fontWeight: "500",
+              marginTop: 10,
+            }}
+          >
+            Languages
+          </Text>
+
+          <Pressable
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            {languages.map((language) => {
+              return selectedFilter === language.language ? (
+                <Pressable
+                  onPress={() => setSelectedFilter()}
+                  style={{
+                    margin: 10,
+                    backgroundColor: "#ffc40c",
+                    paddingVertical: 5,
+                    borderRadius: 25,
+                    paddingHorizontal: 11,
+                  }}
+                >
+                  <Text style={{ color: "#fff" }}>{language.language}</Text>
+                </Pressable>
+              ) : (
+                <Pressable
+                  onPress={() => setSelectedFilter(language.language)}
+                  style={{
+                    margin: 10,
+                    borderColor: "#c8c8c8",
+                    borderWidth: 1,
+                    paddingVertical: 5,
+                    borderRadius: 25,
+                    paddingHorizontal: 11,
+                  }}
+                >
+                  <Text>{language.language}</Text>
+                </Pressable>
+              );
+            })}
+          </Pressable>
+
+          <Text
+            style={{
+              paddingVertical: 5,
+              fontSize: 15,
+              fontWeight: "500",
+              marginTop: 10,
+            }}
+          >
+            Genres
+          </Text>
+
+          <Pressable
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            {genres.map((item) => {
+              return (
+                <Pressable
+                  style={{
+                    margin: 10,
+                    borderColor: "#c8c8c8",
+                    borderWidth: 1,
+                    paddingVertical: 5,
+                    borderRadius: 25,
+                    paddingHorizontal: 11,
+                  }}
+                >
+                  <Text>{item.language}</Text>
+                </Pressable>
+              );
+            })}
+          </Pressable>
+          <Pressable
+            style={{
+              marginVertical: 20,
+              marginRight: "auto",
+              marginLeft: "auto",
+              backgroundColor: "#ffc40c",
+              padding: 15,
+              borderRadius: 10,
+            }}
+            onPress={() => {
+              setSortedData(movieData)
+              setModalVisible(false)
+              setSelectedFilter()
+            }}
+          >
+            <Text style={{ color: "#fff", fontSize: 18, fontWeight: "700" }}>
+              Remove all filter
+            </Text>
+          </Pressable>
+        </ModalContent>
+      </BottomModal>
     </View>
   );
 };

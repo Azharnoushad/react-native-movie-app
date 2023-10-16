@@ -35,7 +35,7 @@ const Tab = createBottomTabNavigator();
     <NavigationContainer>
       <Tab.Navigator 
       screenOptions={{
-      tabBarStyle: {borderWidth:1,borderRadius:10,borderColor:"#d6d4d4",position:"absolute",bottom:10,left:10,right:10,height:60},
+      tabBarStyle: {borderWidth:1,borderRadius:10,borderColor:"#d6d4d4"},
     }}>
         <Tab.Screen
           name="Home"
