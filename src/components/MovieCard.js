@@ -8,8 +8,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const MovieCard = ({ item }) => {
+  const navigation = useNavigation()
   return (
     <View>
       <Pressable
@@ -50,6 +52,7 @@ const MovieCard = ({ item }) => {
           </Text>
         </View>
         <TouchableOpacity
+        onPress={()=>navigation.navigate("MovieScreen",{title:item.title})}
           style={{
             borderRadius: 5,
             backgroundColor: "#ffc40c",
