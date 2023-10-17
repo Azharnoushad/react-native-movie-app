@@ -128,11 +128,40 @@ const HomeScreen = () => {
     },
   ];
 
-  const applyFilterHandler = () => {
+  const applyFilterHandler = (filter) => {
     setModalVisible(false);
-    setSortedData(
-      movieData.filter((data) => data.original_language === selectedFilter)
-    );
+    switch (filter) {
+      case "English":
+        setSortedData(
+          sortedData.filter((data) => data.original_language === selectedFilter)
+        );
+        break;
+      case "Kannada":
+        setSortedData(
+          sortedData.filter((data) => data.original_language === selectedFilter)
+        );
+        break;
+      case "Telugu":
+        setSortedData(
+          sortedData.filter((data) => data.original_language === selectedFilter)
+        );
+        break;
+      case "Hindi":
+        setSortedData(
+          sortedData.filter((data) => data.original_language === selectedFilter)
+        );
+        break;
+      case "Tamil":
+        setSortedData(
+          sortedData.filter((data) => data.original_language === selectedFilter)
+        );
+        break;
+      case "Malayalam":
+        setSortedData(
+          sortedData.filter((data) => data.original_language === selectedFilter)
+        );
+        break;
+    }
   };
   return (
     <View>
@@ -170,7 +199,7 @@ const HomeScreen = () => {
         footer={
           <ModalFooter>
             <Pressable
-              onPress={applyFilterHandler}
+              onPress={() => applyFilterHandler(selectedFilter)}
               style={{
                 paddingRight: 10,
                 marginLeft: "auto",
@@ -285,9 +314,9 @@ const HomeScreen = () => {
               borderRadius: 10,
             }}
             onPress={() => {
-              setSortedData(movieData)
-              setModalVisible(false)
-              setSelectedFilter()
+              setSortedData(movieData);
+              setModalVisible(false);
+              setSelectedFilter();
             }}
           >
             <Text style={{ color: "#fff", fontSize: 18, fontWeight: "700" }}>
