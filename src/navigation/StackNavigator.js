@@ -8,6 +8,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import PlaceScreen from "../screens/PlaceScreen";
 import MovieScreen from "../screens/MovieScreen";
+import TheatreScreen from "../screens/TheatreScreen";
 
 const ProfileStack = createNativeStackNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -18,6 +19,7 @@ const HomeStackScreen = () => {
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{title:""}}/>
       <HomeStack.Screen name="PlaceScreen" component={PlaceScreen} />
       <HomeStack.Screen name="MovieScreen" component={MovieScreen} options={{title:""}}/>
+      <HomeStack.Screen name='TheatreScreen' component={TheatreScreen} options={{title:""}}/>
     </HomeStack.Navigator>
   );
 };

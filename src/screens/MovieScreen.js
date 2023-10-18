@@ -47,7 +47,12 @@ const MovieScreen = () => {
               {
                 malls.includes(multiplex.name) ? (
                   <FlatList numColumns={3} data={multiplex.showtimes} keyExtractor={(item,i)=>i} renderItem={({item})=>(
-                    <Pressable style={{borderColor:"green",borderWidth:0.7,padding:5,width:70,borderRadius:5,margin:8}}>
+                    <Pressable onPress={()=>navigation.navigate("TheatreScreen",{
+                      name:params.title,
+                      selectedDate:selectedDate,
+                      malls:malls,
+                      showtimes:item
+                    })} style={{borderColor:"green",borderWidth:0.7,padding:5,width:70,borderRadius:5,margin:8}}>
                       <Text style={{textAlign:"center",color:"green",fontSize:15,fontWeight:"600"}}>{item}</Text>
                     </Pressable>
 
