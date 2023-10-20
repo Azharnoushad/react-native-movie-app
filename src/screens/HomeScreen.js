@@ -22,32 +22,31 @@ import {
   SlideAnimation,
 } from "react-native-modals";
 import { FontAwesome } from "@expo/vector-icons";
-import "url-search-params-polyfill"
+import "url-search-params-polyfill";
 import { URL } from "react-native-url-polyfill";
 import { client } from "../../pvr-movies/sanity";
 
-
 const HomeScreen = () => {
   global.URL = URL;
-  const params = new URLSearchParams()
-  params.set("foo","bar")
+  const params = new URLSearchParams();
+  params.set("foo", "bar");
   const navigation = useNavigation();
   const moveAnimation = new Animated.Value(0);
   const [modalVisible, setModalVisible] = useState(false);
   const { selectedCity, setSelectedCity } = useContext(Place);
   const [selectedFilter, setSelectedFilter] = useState();
   const [sortedData, setSortedData] = useState(movieData);
-  const [moviesData, setMoviesData] = useState([])
+  const [moviesData, setMoviesData] = useState([]);
 
   const getDataMovie = async () => {
-    const res = await client.fetch(`*[_type == "movie"]`)
-    setMoviesData(res)
-    setSortedData(res)
-  }
+    const res = await client.fetch(`*[_type == "movie"]`);
+    setMoviesData(res);
+    setSortedData(res);
+  };
 
-  useEffect(()=>{
-    getDataMovie()
-  },[])
+  useEffect(() => {
+    getDataMovie();
+  }, []);
 
   useEffect(() => {
     Animated.loop(
@@ -194,7 +193,7 @@ const HomeScreen = () => {
       <Pressable
         onPress={() => {
           setModalVisible(!modalVisible);
-          setSortedData(moviesData);
+          setSortedData(sortedData);
         }}
         style={{
           position: "absolute",
@@ -332,7 +331,7 @@ const HomeScreen = () => {
               borderRadius: 10,
             }}
             onPress={() => {
-              setSortedData(movieData);
+              setSortedData(sortedData);
               setModalVisible(false);
               setSelectedFilter();
             }}

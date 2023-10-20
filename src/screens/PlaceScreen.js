@@ -9,13 +9,14 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React, { useContext, useLayoutEffect } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Place } from "../Context/PlaceContext";
 import { Octicons } from "@expo/vector-icons";
 import placeData from "../json/Places.json";
 import { AntDesign } from "@expo/vector-icons";
+import { client } from "../../pvr-movies/sanity";
 
 const PlaceScreen = () => {
   const navigation = useNavigation();
@@ -48,6 +49,18 @@ const PlaceScreen = () => {
       navigation.navigate("HomeScreen");
     }, 1000);
   };
+  const [cities,setCities] = useState([])
+
+  const getPlaces = async () => {
+    const result = await client.fetch(`*[_type == "location"]`)
+    setCities(result)
+  }
+
+  useEffect(()=>{
+    getPlaces()
+  },[])
+
+  
 
   return (
     <View style={{ padding: 10 }}>
@@ -78,19 +91,19 @@ const PlaceScreen = () => {
       <FlatList
         columnWrapperStyle={{ justifyContent: "space-between" }}
         numColumns={2}
-        data={placeData}
-        keyExtractor={(item) => item.id}
+        data={cities}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <Pressable
             style={{ marginBottom: 20 }}
-            onPress={() => getPlaceHandler(item.place)}
+            onPress={() => getPlaceHandler(item.city)}
           >
             <ImageBackground
               source={{ uri: item.image }}
               style={{ width: 160, height: 100 }}
               imageStyle={{ borderRadius: 8 }}
             >
-              {selectedCity === item.place && (
+              {selectedCity === item.city && (
                 <View
                   style={{
                     marginLeft: 7,
@@ -113,7 +126,7 @@ const PlaceScreen = () => {
                 <Text
                   style={{ color: "#fff", fontSize: 20, fontWeight: "bold" }}
                 >
-                  {item.place}
+                  {item.city}
                 </Text>
               </View>
             </ImageBackground>
